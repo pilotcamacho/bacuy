@@ -1,0 +1,180 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "confirm": "Confirmar",
+    "back": "Volver",
+    "done": "Listo",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "yes": "Sí",
+    "no": "No",
+    "or": "o"
+  },
+  "tabs": {
+    "home": "Inicio",
+    "capture": "Capturar",
+    "records": "Registros",
+    "settings": "Ajustes"
+  },
+  "capture": {
+    "placeholder": "Escribe lo que sea — una tarea, una idea, un hábito por construir...",
+    "voiceButton": "Toca para hablar",
+    "classifyButton": "Organizar",
+    "classifyingLabel": "Organizando tu idea...",
+    "suggestionTitle": "Esto es lo que encontré",
+    "confirmButton": "Está bien",
+    "adjustButton": "Ajustar"
+  },
+  "classification": {
+    "category": "Categoría",
+    "title": "Título",
+    "description": "Descripción",
+    "lifeArea": "Área de vida",
+    "priority": "Prioridad",
+    "dueDate": "Fecha límite",
+    "tags": "Etiquetas"
+  },
+  "categories": {
+    "HABIT": "Hábito",
+    "SKILL": "Habilidad",
+    "ATTITUDE": "Actitud",
+    "PROJECT": "Proyecto",
+    "TASK": "Tarea"
+  },
+  "lifeAreas": {
+    "WORK": "Trabajo",
+    "HEALTH": "Salud",
+    "HOME": "Hogar",
+    "FINANCE": "Finanzas",
+    "PERSONAL_GROWTH": "Crecimiento personal",
+    "RELATIONSHIPS": "Relaciones",
+    "OTHER": "Otro"
+  },
+  "status": {
+    "PENDING": "Pendiente",
+    "IN_PROGRESS": "En progreso",
+    "DONE": "Listo",
+    "ARCHIVED": "Archivado"
+  },
+  "records": {
+    "title": "Mis registros",
+    "emptyState": "Sin registros aún. Toca Capturar para agregar el primero.",
+    "filterAll": "Todos",
+    "sortByPriority": "Prioridad",
+    "sortByDate": "Fecha"
+  },
+  "habits": {
+    "title": "Hábitos",
+    "checkIn": "Registrar",
+    "streak": "Racha de {{count}} días",
+    "completedToday": "Completado hoy",
+    "checkInForm": {
+      "mood": "¿Cómo te sientes?",
+      "location": "¿Dónde estás?",
+      "companions": "¿Quién está contigo?",
+      "priorActivities": "¿Qué estabas haciendo antes?",
+      "notes": "Notas"
+    }
+  },
+  "skills": {
+    "title": "Habilidades",
+    "progress": "{{percent}}% completado",
+    "addMilestone": "Agregar hito",
+    "logSession": "Registrar sesión",
+    "sessionForm": {
+      "duration": "Duración (minutos)",
+      "notes": "Notas de sesión",
+      "outcome": "¿Cómo te fue?"
+    }
+  },
+  "attitudes": {
+    "title": "Actitudes",
+    "logApplication": "Registrar aplicación",
+    "reflectionPrompt": "¿Cómo aplicaste esto hoy?",
+    "applicationForm": {
+      "situation": "Describe la situación",
+      "outcome": "¿Cuál fue el resultado?",
+      "tags": "Etiquetas"
+    }
+  },
+  "projects": {
+    "title": "Proyectos",
+    "addSubActivity": "Agregar subactividad",
+    "addTask": "Agregar tarea",
+    "timeline": "Cronograma",
+    "board": "Tablero",
+    "noTasks": "Sin tareas aún"
+  },
+  "alarms": {
+    "title": "Alarmas",
+    "add": "Agregar alarma",
+    "types": {
+      "TIME": "Por tiempo",
+      "GEOFENCE": "Por ubicación",
+      "SMART": "Alarma inteligente"
+    },
+    "timePicker": "Selecciona fecha y hora",
+    "locationPicker": "Selecciona ubicación",
+    "smartRule": "Definir regla",
+    "active": "Activa",
+    "inactive": "Inactiva"
+  },
+  "messages": {
+    "title": "Notificaciones",
+    "empty": "Sin mensajes",
+    "markRead": "Marcar como leído",
+    "dismiss": "Descartar"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "language": "Idioma",
+    "languageOptions": {
+      "en": "English",
+      "es": "Español"
+    },
+    "theme": "Tema",
+    "themeOptions": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "auto": "Automático"
+    },
+    "account": "Cuenta",
+    "signOut": "Cerrar sesión",
+    "lifeAreas": "Mis áreas de vida",
+    "notifications": "Notificaciones",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio",
+    "version": "Versión {{version}}"
+  },
+  "auth": {
+    "signIn": "Iniciar sesión",
+    "signUp": "Crear cuenta",
+    "signOut": "Cerrar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "resetPassword": "Restablecer contraseña",
+    "resetSent": "Revisa tu correo para el enlace de restablecimiento",
+    "continueWithGoogle": "Continuar con Google",
+    "continueWithApple": "Continuar con Apple",
+    "noAccount": "¿No tienes cuenta?",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "verificationCode": "Código de verificación",
+    "verify": "Verificar"
+  },
+  "errors": {
+    "generic": "Algo salió mal. Por favor intenta de nuevo.",
+    "network": "Sin conexión a internet.",
+    "authFailed": "Error al iniciar sesión. Verifica tus credenciales.",
+    "classificationFailed": "No se pudo clasificar tu entrada. Por favor intenta de nuevo.",
+    "saveFailed": "No se pudo guardar. Por favor intenta de nuevo.",
+    "locationPermission": "Se requiere permiso de ubicación para esta función.",
+    "microphonePermission": "Se requiere permiso de micrófono para la entrada de voz."
+  }
+}

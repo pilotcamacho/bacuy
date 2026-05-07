@@ -1,0 +1,180 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "back": "Back",
+    "done": "Done",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or"
+  },
+  "tabs": {
+    "home": "Home",
+    "capture": "Capture",
+    "records": "Records",
+    "settings": "Settings"
+  },
+  "capture": {
+    "placeholder": "Write anything — a task, an idea, a habit to build...",
+    "voiceButton": "Tap to speak",
+    "classifyButton": "Organize",
+    "classifyingLabel": "Organizing your thought...",
+    "suggestionTitle": "Here's what I found",
+    "confirmButton": "Looks good",
+    "adjustButton": "Adjust"
+  },
+  "classification": {
+    "category": "Category",
+    "title": "Title",
+    "description": "Description",
+    "lifeArea": "Life Area",
+    "priority": "Priority",
+    "dueDate": "Due Date",
+    "tags": "Tags"
+  },
+  "categories": {
+    "HABIT": "Habit",
+    "SKILL": "Skill",
+    "ATTITUDE": "Attitude",
+    "PROJECT": "Project",
+    "TASK": "Task"
+  },
+  "lifeAreas": {
+    "WORK": "Work",
+    "HEALTH": "Health",
+    "HOME": "Home",
+    "FINANCE": "Finance",
+    "PERSONAL_GROWTH": "Personal Growth",
+    "RELATIONSHIPS": "Relationships",
+    "OTHER": "Other"
+  },
+  "status": {
+    "PENDING": "Pending",
+    "IN_PROGRESS": "In Progress",
+    "DONE": "Done",
+    "ARCHIVED": "Archived"
+  },
+  "records": {
+    "title": "My Records",
+    "emptyState": "No records yet. Tap Capture to add your first one.",
+    "filterAll": "All",
+    "sortByPriority": "Priority",
+    "sortByDate": "Date"
+  },
+  "habits": {
+    "title": "Habits",
+    "checkIn": "Check In",
+    "streak": "{{count}} day streak",
+    "completedToday": "Completed today",
+    "checkInForm": {
+      "mood": "How are you feeling?",
+      "location": "Where are you?",
+      "companions": "Who's with you?",
+      "priorActivities": "What were you doing before?",
+      "notes": "Notes"
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "progress": "{{percent}}% complete",
+    "addMilestone": "Add Milestone",
+    "logSession": "Log Session",
+    "sessionForm": {
+      "duration": "Duration (minutes)",
+      "notes": "Session notes",
+      "outcome": "How did it go?"
+    }
+  },
+  "attitudes": {
+    "title": "Attitudes",
+    "logApplication": "Log Application",
+    "reflectionPrompt": "How did you apply this today?",
+    "applicationForm": {
+      "situation": "Describe the situation",
+      "outcome": "What was the outcome?",
+      "tags": "Tags"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "addSubActivity": "Add Sub-Activity",
+    "addTask": "Add Task",
+    "timeline": "Timeline",
+    "board": "Board",
+    "noTasks": "No tasks yet"
+  },
+  "alarms": {
+    "title": "Alarms",
+    "add": "Add Alarm",
+    "types": {
+      "TIME": "Time-based",
+      "GEOFENCE": "Location-based",
+      "SMART": "Smart Alarm"
+    },
+    "timePicker": "Select date and time",
+    "locationPicker": "Select location",
+    "smartRule": "Define rule",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "messages": {
+    "title": "Notifications",
+    "empty": "No messages",
+    "markRead": "Mark as read",
+    "dismiss": "Dismiss"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "languageOptions": {
+      "en": "English",
+      "es": "Español"
+    },
+    "theme": "Theme",
+    "themeOptions": {
+      "light": "Light",
+      "dark": "Dark",
+      "auto": "Auto"
+    },
+    "account": "Account",
+    "signOut": "Sign Out",
+    "lifeAreas": "My Life Areas",
+    "notifications": "Notifications",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "version": "Version {{version}}"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Create Account",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset Password",
+    "resetSent": "Check your email for a reset link",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithApple": "Continue with Apple",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "verificationCode": "Verification Code",
+    "verify": "Verify"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "No internet connection.",
+    "authFailed": "Sign in failed. Check your credentials.",
+    "classificationFailed": "Could not classify your input. Please try again.",
+    "saveFailed": "Could not save. Please try again.",
+    "locationPermission": "Location permission is required for this feature.",
+    "microphonePermission": "Microphone permission is required for voice input."
+  }
+}
