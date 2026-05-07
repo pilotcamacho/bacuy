@@ -105,9 +105,11 @@ This queue is the single delivery layer for all user-facing communication in the
 
 ## 4. Data Architecture
 
-### 4.1 Backend: AWS Amplify
+### 4.1 Backend: AWS Amplify Gen 2
 
-All data management and authentication will be handled through **AWS Amplify**, leveraging:
+All data management and authentication will be handled through **AWS Amplify Gen 2**, using a **TypeScript-first, code-defined backend**. The backend lives in an `amplify/` folder inside the project and is deployed via a personal cloud sandbox during development and via CI/CD in production.
+
+AWS services used:
 
 - **Amazon DynamoDB** — NoSQL data store for all user records
 - **Amazon Cognito** — User authentication and authorization
@@ -116,65 +118,97 @@ All data management and authentication will be handled through **AWS Amplify**, 
 - **Amazon Location Service** — Geofence management for location-based reminders
 - **Amazon SNS / EventBridge** — Push notifications and scheduled event delivery
 
-### 4.2 Core Data Models (DynamoDB via Amplify)
+**Backend folder structure:**
+```
+amplify/
+├── backend.ts           # Root: wires auth + data + functions together
+├── auth/
+│   └── resource.ts      # Cognito user pool definition
+├── data/
+│   └── resource.ts      # AppSync + DynamoDB schema (TypeScript)
+└── functions/           # Lambda functions (alarm rules, AI triggers)
+```
 
-```graphql
-type User @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  email: String!
-  preferredLanguage: String
-  lifeAreas: [String]
-  records: [Record] @hasMany
-}
+**Local development workflow:**
+```
+npx ampx sandbox         # Deploys a personal cloud sandbox and watches for changes
+```
+Running `ampx sandbox` generates `amplify_outputs.json` at the project root — this file is safe to commit (contains no secrets) and is how the app client discovers backend endpoints.
 
-type Record @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  rawInput: String!           # Original free-form text
-  category: RecordCategory!   # HABIT | SKILL | ATTITUDE | PROJECT | TASK
-  title: String
-  description: String
-  status: RecordStatus        # PENDING | IN_PROGRESS | DONE | ARCHIVED
-  lifeArea: String
-  priority: Int
-  dueDate: AWSDateTime
-  alarms: [Alarm] @hasMany
-  habitLog: [HabitEntry] @hasMany
-  subItems: [Record] @hasMany  # For project hierarchy
-  parentId: ID               # Self-referencing for sub-tasks
-  tags: [String]
-  createdAt: AWSDateTime
-  updatedAt: AWSDateTime
-}
+### 4.2 Core Data Models (`amplify/data/resource.ts`)
 
-type Alarm @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  recordId: ID!
-  type: AlarmType             # TIME | GEOFENCE | SMART
-  scheduledAt: AWSDateTime
-  geofenceId: String
-  smartRule: String           # e.g., "LAST_BUSINESS_DAY_BEFORE:15"
-  isActive: Boolean!
-}
+```typescript
+import { a, defineData } from '@aws-amplify/backend';
 
-type HabitEntry @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  recordId: ID!
-  completedAt: AWSDateTime!
-  location: String
-  mood: String
-  companions: [String]
-  notes: String
-}
+const schema = a.schema({
+  BacuyRecord: a.model({
+    rawInput:    a.string().required(),
+    category:    a.enum(['HABIT', 'SKILL', 'ATTITUDE', 'PROJECT', 'TASK']),
+    title:       a.string(),
+    description: a.string(),
+    status:      a.enum(['PENDING', 'IN_PROGRESS', 'DONE', 'ARCHIVED']).default('PENDING'),
+    lifeArea:    a.string(),
+    priority:    a.integer(),
+    dueDate:     a.datetime(),
+    parentId:    a.id(),        // Self-referencing for project hierarchy
+    tags:        a.string().array(),
+  })
+  .authorization(allow => [allow.owner()])
+  .relationships({
+    alarms:    a.hasMany('Alarm', 'recordId'),
+    habitLog:  a.hasMany('HabitEntry', 'recordId'),
+    subItems:  a.hasMany('BacuyRecord', 'parentId'),
+  }),
+
+  Alarm: a.model({
+    recordId:    a.id().required(),
+    type:        a.enum(['TIME', 'GEOFENCE', 'SMART']),
+    scheduledAt: a.datetime(),
+    geofenceId:  a.string(),
+    smartRule:   a.string(),    // e.g., "BUSINESS_DAY_BEFORE:15:MONTHLY"
+    isActive:    a.boolean().required().default(true),
+  })
+  .authorization(allow => [allow.owner()]),
+
+  HabitEntry: a.model({
+    recordId:    a.id().required(),
+    completedAt: a.datetime().required(),
+    location:    a.string(),
+    mood:        a.string(),
+    companions:  a.string().array(),
+    notes:       a.string(),
+  })
+  .authorization(allow => [allow.owner()]),
+
+  MessageQueueEntry: a.model({
+    recordId:    a.id(),
+    trigger:     a.string().required(),
+    goal:        a.string().required(),
+    priority:    a.integer().required(),
+    channel:     a.enum(['PUSH', 'IN_APP', 'VOICE']),
+    content:     a.string().required(),
+    status:      a.enum(['PENDING', 'DELIVERED', 'READ', 'DISMISSED']).default('PENDING'),
+    scheduledAt: a.datetime().required(),
+    deliveredAt: a.datetime(),
+  })
+  .authorization(allow => [allow.owner()]),
+});
+
+export type Schema = typeof schema;
+export const data = defineData({
+  schema,
+  authorizationModes: { defaultAuthorizationMode: 'userPool' },
+});
 ```
 
 ---
 
 ## 5. Authentication
 
-- **Provider:** Amazon Cognito via AWS Amplify Auth
+- **Provider:** Amazon Cognito via Amplify Gen 2 `defineAuth`
 - **Methods:** Email/password, Google OAuth, Apple Sign-In
 - **Features:** MFA support, password reset, session management
-- **Authorization:** All records are owner-scoped using Amplify's `@auth(rules: [{ allow: owner }])` directive — no user can access another user's data
+- **Authorization:** All records are owner-scoped using `.authorization(allow => [allow.owner()])` — no user can access another user's data
 
 ---
 
@@ -195,7 +229,7 @@ type HabitEntry @model @auth(rules: [{ allow: owner }]) {
 | **Mobile App** | React Native + Expo | Cross-platform, Amplify-compatible |
 | **State Management** | Zustand | Lightweight, simple API |
 | **Navigation** | Expo Router (file-based) | Clean routing, deep link support |
-| **API / Data** | AWS AppSync + Amplify DataStore | Real-time sync, offline-first |
+| **API / Data** | AWS AppSync + Amplify Gen 2 Data client | Real-time sync; offline caching via React Query + AsyncStorage |
 | **Auth** | AWS Cognito via Amplify Auth | Secure, scalable, built-in UI components |
 | **Database** | Amazon DynamoDB (via Amplify) | Scalable NoSQL, auto-synced |
 | **AI Classification** | Amazon Bedrock or OpenAI API | Free-form input → structured record |

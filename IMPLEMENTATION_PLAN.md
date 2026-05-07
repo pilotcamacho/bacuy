@@ -15,14 +15,16 @@ The app is built in **10 sequential phases**. Each phase has clear deliverables 
 - [ ] Set up NativeWind (Tailwind for React Native)
 - [ ] Initialize Zustand stores (auth, records, ui, messageQueue)
 - [ ] Set up `i18next` + `react-i18next` with `en` and `es` locale files (empty keys, correct structure)
-- [ ] Create AWS account and install Amplify CLI
-- [ ] Run `amplify init` — configure project, region, and environments (dev / prod)
+- [ ] Create AWS account and configure credentials (`aws configure` with an IAM user)
+- [ ] Initialize Amplify Gen 2 backend inside `mobile/`: `npm create amplify@latest`
+- [ ] Start personal cloud sandbox for local development: `npx ampx sandbox`
+- [ ] Confirm `amplify_outputs.json` is generated and committed
 - [ ] Set up CI/CD pipeline (GitHub Actions): lint, type-check, test on every PR
 - [ ] Configure EAS Build for iOS and Android
 
 ### Deliverables
 - Runnable blank app on iOS simulator and Android emulator
-- AWS Amplify project linked and deploying
+- Amplify Gen 2 sandbox deployed; `amplify_outputs.json` present
 - i18n wired up end-to-end (language switcher toggles between English and Spanish)
 
 ---
@@ -31,13 +33,13 @@ The app is built in **10 sequential phases**. Each phase has clear deliverables 
 **Goal:** Secure, working login before any data is stored.
 
 ### Tasks
-- [ ] Define Amplify Auth (Cognito user pool): email/password, Google OAuth, Apple Sign-In
+- [ ] Define Amplify Gen 2 Auth in `amplify/auth/resource.ts` using `defineAuth`: email/password, Google OAuth, Apple Sign-In
 - [ ] Build Sign Up screen (email, password, confirmation code)
 - [ ] Build Sign In screen
 - [ ] Build Password Reset flow
 - [ ] Implement Google OAuth (Cognito hosted UI or custom)
 - [ ] Implement Apple Sign-In (required for iOS App Store when any social login is present)
-- [ ] Session persistence via Amplify Auth + Zustand auth store
+- [ ] Session persistence via `aws-amplify` Auth client + Zustand auth store
 - [ ] Protect all app routes — redirect unauthenticated users to Sign In
 
 ### Deliverables
@@ -48,21 +50,25 @@ The app is built in **10 sequential phases**. Each phase has clear deliverables 
 ---
 
 ## Phase 2 — Core Data Layer
-**Goal:** Offline-first data sync ready before building any UI on top of it.
+**Goal:** Data schema defined, sandbox deployed, and client wired up before building any UI on top of it.
 
 ### Tasks
-- [ ] Define final GraphQL schema in `amplify/backend/api/schema.graphql`:
-  - `User`, `Record` (with self-referencing `subItems` for project hierarchy), `Alarm`, `HabitEntry`, `MessageQueueEntry`
-  - All models use `@auth(rules: [{ allow: owner }])` — no cross-user data access
-- [ ] Push schema and generate DataStore models (`amplify push`)
-- [ ] Wire Amplify DataStore for offline-first sync with conflict resolution strategy (`AUTO_MERGE`)
-- [ ] Build generic CRUD helpers (create, read, update, soft-delete) over DataStore
-- [ ] Add `MessageQueueEntry` model: fields for `trigger`, `goal`, `priority`, `channel`, `content`, `deliveredAt`, `status`
+- [ ] Define all models in `amplify/data/resource.ts` using the Gen 2 `a.schema()` API:
+  - `BacuyRecord` (with self-referencing `subItems` for project hierarchy), `Alarm`, `HabitEntry`, `MessageQueueEntry`
+  - All models use `.authorization(allow => [allow.owner()])` — no cross-user data access
+- [ ] Wire backend in `amplify/backend.ts`: `defineBackend({ auth, data })`
+- [ ] Deploy to sandbox (`npx ampx sandbox`) — confirms schema compiles and DynamoDB tables are created
+- [ ] Install Amplify client libraries: `npm install aws-amplify @aws-amplify/react-native`
+- [ ] Configure Amplify client in app entry point using `amplify_outputs.json`
+- [ ] Install React Query + AsyncStorage for offline-first caching: `npm install @tanstack/react-query @react-native-async-storage/async-storage`
+- [ ] Build generic CRUD helpers using the Amplify Gen 2 Data client (`client.models.BacuyRecord.create/list/update/delete`)
+- [ ] Wrap CRUD helpers with React Query — enable persistence via `createAsyncStoragePersister` for offline support
 - [ ] Write unit tests for all CRUD helpers
 
 ### Deliverables
-- Data persists locally and syncs to DynamoDB when online
-- All models match the spec schema
+- Schema deployed to sandbox; AppSync API and DynamoDB tables confirmed in AWS console
+- App client connects to backend using `amplify_outputs.json`
+- CRUD operations work online; cached data available offline via React Query persister
 - Tests pass for create/read/update/delete on all models
 
 ---
@@ -77,9 +83,9 @@ The app is built in **10 sequential phases**. Each phase has clear deliverables 
   - Return: `{ category, title, description, lifeArea, priority, dueDate, tags }`
 - [ ] Engineer classification prompt — must be localizable (prompt itself in English; user input in any language)
 - [ ] Build **Suggestion Card** UI: shows AI result, user can confirm or edit each field before saving
-- [ ] On confirm: save `Record` via DataStore, navigate to the record's detail screen
+- [ ] On confirm: save `BacuyRecord` via Amplify Data client, navigate to the record's detail screen
 - [ ] Handle loading state (skeleton UI during AI call) and error state (retry or manual classify)
-- [ ] Handle offline capture: queue raw input locally, classify when connectivity returns
+- [ ] Handle offline capture: store raw input in AsyncStorage, classify and sync when connectivity returns
 
 ### Deliverables
 - End-to-end flow: user types → AI classifies → user confirms → record saved
@@ -259,7 +265,7 @@ This is the architectural backbone of the app. Every notification, nudge, and re
 
 #### Testing
 - [ ] Unit tests (Jest): all Zustand stores, CRUD helpers, priority scoring, smart alarm rule parser
-- [ ] Integration tests: DataStore sync, auth flows, message queue dispatch
+- [ ] Integration tests: Amplify Data client sync, auth flows, message queue dispatch
 - [ ] E2E tests (Maestro or Detox): Capture → classify → confirm → record appears; Habit check-in flow; Project breakdown flow
 - [ ] Manual QA on physical iOS and Android devices
 
@@ -292,7 +298,7 @@ This is the architectural backbone of the app. Every notification, nudge, and re
 | iOS background restrictions limit wake word detection | High | Use Expo background task API; test early; have tap-to-activate as fallback |
 | AI classification latency (2-5s) disrupts UX | Medium | Show skeleton UI immediately; classify async; allow manual classification offline |
 | Smart alarm rule parsing complexity | Medium | Ship Phase 6.3 with a guided form (no free-text NLP) in v1; add NLP in v2 |
-| Amplify DataStore conflict resolution on recursive project trees | Medium | Use `AUTO_MERGE`; add server-side validation Lambda for consistency |
+| Offline sync consistency on recursive project trees | Medium | React Query optimistic updates + AppSync subscriptions for real-time reconciliation; add server-side Lambda validation |
 | Geofencing battery drain on Android | Medium | Use significant-location-change mode; document battery impact to users |
 | Apple Sign-In requirement | Low | Required for App Store if Google login is present — implement in Phase 1 |
 

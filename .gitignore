@@ -25,10 +25,11 @@ android/
 *.pem
 *.mobileprovision
 
-# ── AWS Amplify ──────────────────────────────────────────────────────────────────
-amplify/team-provider-info.json
-amplify/#current-cloud-backend/
-.amplifyrc
+# ── AWS Amplify Gen 2 ────────────────────────────────────────────────────────────
+# .amplify/ holds local sandbox state — machine-specific, never commit
+.amplify/
+# amplify_outputs.json is safe to commit (no secrets; required for CI/CD)
+# DO NOT add it here
 .aws/
 
 # ── EAS Build ────────────────────────────────────────────────────────────────────
