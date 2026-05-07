@@ -4,6 +4,8 @@
 
 Bacuy is an intelligent personal productivity app that goes beyond a traditional to-do list. Its core philosophy is **frictionless capture**: the user records anything freely, and the app organizes it intelligently. Records can be tasks, habits, skills, attitudes, or projects — each with its own lifecycle and tracking mechanism.
 
+Ultimately, everything in Bacuy is a **text message presented to the user**. Every alarm, reminder, nudge, and suggestion is an entry in a **message queue** — a sequence of messages delivered at exactly the right moment and context to help the user accomplish their goals.
+
 ---
 
 ## 1. Core Concept: Free-Form Capture
@@ -81,7 +83,19 @@ User writes freely → AI classifies → User confirms/adjusts → Record is org
 - Priority scoring based on deadlines, importance, and energy required
 - Smart scheduling suggestions based on available time windows
 
-### 3.8 Multilingual Support
+### 3.8 Message Queue & Delivery
+
+All output to the user — alarms, reminders, habit check-in prompts, skill progress updates, project status summaries, AI suggestions, and onboarding tips — is modeled as entries in a **message queue**.
+
+Key principles:
+- Every message has a **trigger condition**: a time, a location event, a completed action, or a scheduled rule.
+- Every message has a **goal**: reinforce a habit, unblock a task, prompt a reflection, or surface a deadline.
+- Messages are **prioritized and de-duplicated**: if multiple triggers fire at once, the queue orders them by relevance and urgency so the user is never overwhelmed.
+- Message content is fully **localizable** and can be delivered via push notification, in-app banner, or voice output.
+
+This queue is the single delivery layer for all user-facing communication in the app.
+
+### 3.9 Multilingual Support
 
 - Full i18n support from day one
 - Initial languages: Spanish and English

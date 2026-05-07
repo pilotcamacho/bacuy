@@ -1,31 +1,38 @@
-La aplicación Bacuy, *B-A-C-U-Y, es una especie de *todo list, una lista de cosas por hacer donde tiene muchas características particulares.
-### *Entrada de Datos*
-La primera es que el ingreso de las actividades o de la información es en una pantalla o en un lugar, digámoslo así, en blanco sin tener que estar en un único lugar para todo lo que se le vaya a ingresar. Simplemente se escribe como una nota al aire y luego esa se va organizando dentro del proceso interno de la aplicación. Entonces se me ocurre algo, lo escribo y luego eso se define hacia dónde se dirige.
-### *Categorías de Registro*
-Segundo, la aplicación va a tener registros relacionados con:
- * Habilidades.
- * Hábitos.
- * Actitudes respecto a situaciones.
- * Manejo de proyectos.
- * Todos estándar como diligencias o cosas específicas.
-### *Desglose de Categorías*
-La idea de las actitudes, habilidades y hábitos está relacionada con un proyecto de listas para recordar. La primera lista que tuve fue la de "50 promesas para el matrimonio".
- * *Hábitos:* Como ejemplo de esa lista, saludarse todas las mañanas con la pareja y darle un beso; eso es un hábito que se debe crear.
- * *Habilidades:* Se pueden incluir propósitos de fin de año como aprender a tocar cuatro o ir al gimnasio. Debe quedar un registro y un mecanismo para progresar en esa habilidad.
- * *Actitudes:* Basado, por ejemplo, en la cultura tolteca, como "hacer tu mayor esfuerzo". Es la manera como uno se enfrenta a una situación y debe quedar registrado.
-### *Funcionalidades Técnicas*
- * *Gestión de Proyectos:* Un proyecto se puede partir en subactividades, y estas a su vez en otras subactividades hasta llegar a tareas bien específicas con tiempos y resultados claros.
- * *Alarmas:*
-   * *Por tiempo:* Especificar una hora particular.
-   * *Por ubicación (Geográficas):* "Cuando llegue a la casa, recuérdeme hacer tal cosa" para ir creando el hábito.
-   * *Alarmas inteligentes:* Similares a Alexa, que permitan configurar recordatorios como "el día hábil anterior al 15 de cada mes" para pagos.
- * *Registro de Hábitos:* Debe permitir registrar elementos que disparan un hábito: lugar, momento, acompañantes, estado de ánimo y actividades anteriores.
- * *Interfaz y Control:*
-   * Uso de GPS y sistema de audio.
-   * Entrada de actividades por medio de voz con una palabra de activación.
-   * Organización inteligente de actividades en grupos (trabajo, deporte, hogar, etc.) y definición de prioridades para distribuir el tiempo según los límites de fecha.
-En resumen, la aplicación busca centralizar la entrada de datos de forma libre para luego organizarlos inteligentemente por áreas, prioridades y tipos de registro (habilidades, hábitos, actitudes o proyectos).
+The Bacuy app, *B-A-C-U-Y*, is a kind of *todo list* — a list of things to do — with many distinctive characteristics.
 
-### Idioma
-La aplicación deberá soportar múltiples idiomas.
+### *Data Entry*
+The first is that activities or information are entered on a blank screen or space, without needing a specific place for each type of input. The user simply writes a free-form note, and the app organizes it internally. An idea comes to mind, it gets written down, and then it gets routed to where it belongs.
 
+### *Record Categories*
+Second, the app will have records related to:
+ * Skills.
+ * Habits.
+ * Attitudes toward situations.
+ * Project management.
+ * Standard todos such as errands or specific one-off items.
+
+### *Category Breakdown*
+The idea behind attitudes, skills, and habits is connected to a project of reminder lists. The first list was "50 Wedding Promises."
+ * *Habits:* For example, greeting your partner every morning with a kiss — that is a habit to build.
+ * *Skills:* Year-end resolutions like learning to play the cuatro or going to the gym. There must be a record and a mechanism to track progress in that skill.
+ * *Attitudes:* Based, for example, on Toltec culture, like "always do your best." It is the way one faces a situation and must be recorded.
+
+### *Technical Features*
+ * *Project Management:* A project can be broken into sub-activities, and those into further sub-activities, down to very specific tasks with clear timeframes and outcomes.
+ * *Alarms:*
+   * *Time-based:* Specify a particular time.
+   * *Location-based (Geofence):* "When I get home, remind me to do X" to help build a habit.
+   * *Smart alarms:* Similar to Alexa, allowing rules like "the business day before the 15th of each month" for recurring payments.
+ * *Habit Logging:* Must allow logging the elements that trigger a habit: location, time of day, companions, mood, and prior activities.
+ * *Interface & Controls:*
+   * GPS and audio system integration.
+   * Voice-based activity entry with a wake word.
+   * Intelligent grouping of activities (work, sports, home, etc.) and priority definition to allocate time according to deadlines.
+
+In summary, the app seeks to centralize data entry in a free-form way and then organize it intelligently by area, priority, and record type (skills, habits, attitudes, or projects).
+
+### Language
+The app must support multiple languages.
+
+### Message Queue
+Ultimately, everything is text messages presented to the user. At the end of every flow there is a **message queue**: a sequence of messages delivered to the user at exactly the right moment and time to help them accomplish their goals. Alarms, reminders, habit nudges, progress updates, and AI suggestions are all instances of this queue in action.
