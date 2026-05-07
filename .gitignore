@@ -28,8 +28,8 @@ android/
 # ── AWS Amplify Gen 2 ────────────────────────────────────────────────────────────
 # .amplify/ holds local sandbox state — machine-specific, never commit
 .amplify/
-# amplify_outputs.json is safe to commit (no secrets; required for CI/CD)
-# DO NOT add it here
+# amplify_outputs.json is auto-generated on every deploy — never commit
+amplify_outputs.json
 .aws/
 
 # ── EAS Build ────────────────────────────────────────────────────────────────────

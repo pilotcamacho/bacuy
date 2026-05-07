@@ -133,7 +133,7 @@ amplify/
 ```
 npx ampx sandbox         # Deploys a personal cloud sandbox and watches for changes
 ```
-Running `ampx sandbox` generates `amplify_outputs.json` at the project root — this file is safe to commit (contains no secrets) and is how the app client discovers backend endpoints.
+Running `ampx sandbox` generates `amplify_outputs.json` at the project root — this file is auto-generated on every deploy and is gitignored. Each developer and CI/CD pipeline generates their own copy.
 
 ### 4.2 Core Data Models (`amplify/data/resource.ts`)
 
