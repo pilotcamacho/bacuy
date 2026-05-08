@@ -11,12 +11,14 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { authConfirmSignUp, authResendCode } from '@/lib/auth';
+import { authConfirmSignUp, authResendCode, authAutoSignIn, checkCurrentUser } from '@/lib/auth';
+import { useAuthStore } from '@/store';
 
 export default function ConfirmScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const { email } = useLocalSearchParams<{ email: string }>();
+  const { setUser } = useAuthStore();
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
@@ -28,8 +30,15 @@ export default function ConfirmScreen() {
     setLoading(true);
     setError('');
     try {
-      await authConfirmSignUp(email, code);
-      router.replace('/(auth)/sign-in');
+      const { nextStep } = await authConfirmSignUp(email, code);
+      if (nextStep.signUpStep === 'COMPLETE_AUTO_SIGN_IN') {
+        await authAutoSignIn();
+        const user = await checkCurrentUser();
+        setUser(user);
+        // AuthGuard handles redirect to /(tabs)
+      } else {
+        router.replace('/(auth)/sign-in');
+      }
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : t('errors.generic'));
     } finally {

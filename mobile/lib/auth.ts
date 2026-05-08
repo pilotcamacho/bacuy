@@ -4,6 +4,7 @@ import {
   signOut,
   signUp,
   confirmSignUp,
+  autoSignIn,
   resetPassword,
   confirmResetPassword,
   resendSignUpCode,
@@ -36,12 +37,16 @@ export async function authSignUp(email: string, password: string) {
   return signUp({
     username: email,
     password,
-    options: { userAttributes: { email } },
+    options: { userAttributes: { email }, autoSignIn: true },
   });
 }
 
 export async function authConfirmSignUp(email: string, code: string) {
   return confirmSignUp({ username: email, confirmationCode: code });
+}
+
+export async function authAutoSignIn() {
+  return autoSignIn();
 }
 
 export async function authResendCode(email: string) {

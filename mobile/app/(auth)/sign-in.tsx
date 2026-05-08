@@ -31,6 +31,7 @@ export default function SignInScreen() {
       const user = await checkCurrentUser();
       setUser(user);
     } catch (e: unknown) {
+      console.error('[SignIn] error:', JSON.stringify(e, Object.getOwnPropertyNames(e)));
       setError(e instanceof Error ? e.message : t('errors.authFailed'));
     } finally {
       setLoading(false);
