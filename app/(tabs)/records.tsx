@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -29,6 +30,7 @@ function sortRecords(records: BacuyRecord[], byPriority: boolean): BacuyRecord[]
 
 export default function RecordsScreen() {
   const { t } = useTranslation();
+  const router = useRouter();
   const { records, isLoading, error, fetchRecords, saveRecord, deleteRecord } = useRecordsStore();
   const [filter, setFilter] = useState<FilterCategory>('ALL');
   const [sortByPriority, setSortByPriority] = useState(false);
@@ -120,6 +122,7 @@ export default function RecordsScreen() {
                 record={item}
                 onStatusToggle={handleStatusToggle}
                 onDelete={deleteRecord}
+                onPress={() => router.push({ pathname: '/record/[id]', params: { id: item.id } })}
               />
             )}
             contentContainerStyle={{

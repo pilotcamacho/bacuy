@@ -168,6 +168,21 @@
     "verificationCode": "Código de verificación",
     "verify": "Verificar"
   },
+  "record": {
+    "rawInput": "Nota original",
+    "created": "Creado",
+    "updated": "Actualizado",
+    "deleteConfirm": "Esto eliminará este registro de forma permanente.",
+    "statusLabel": "Estado",
+    "checkInCount_one": "{{count}} registro",
+    "checkInCount_other": "{{count}} registros",
+    "habitSection": "Seguimiento del hábito",
+    "skillSection": "Progreso de habilidad",
+    "attitudeSection": "Práctica de actitud",
+    "projectSection": "Subtareas",
+    "noSubTasks": "Sin subtareas aún",
+    "subTaskTitle": "Título de la tarea"
+  },
   "errors": {
     "generic": "Algo salió mal. Por favor intenta de nuevo.",
     "network": "Sin conexión a internet.",

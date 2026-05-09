@@ -168,6 +168,21 @@
     "verificationCode": "Verification Code",
     "verify": "Verify"
   },
+  "record": {
+    "rawInput": "Original note",
+    "created": "Created",
+    "updated": "Updated",
+    "deleteConfirm": "This will permanently delete this record.",
+    "statusLabel": "Status",
+    "checkInCount_one": "{{count}} check-in",
+    "checkInCount_other": "{{count}} check-ins",
+    "habitSection": "Habit Tracking",
+    "skillSection": "Skill Progress",
+    "attitudeSection": "Attitude Practice",
+    "projectSection": "Sub-Tasks",
+    "noSubTasks": "No sub-tasks yet",
+    "subTaskTitle": "Task title"
+  },
   "errors": {
     "generic": "Something went wrong. Please try again.",
     "network": "No internet connection.",

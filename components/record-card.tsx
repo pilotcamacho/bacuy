@@ -21,9 +21,10 @@ interface RecordCardProps {
   record: BacuyRecord;
   onStatusToggle: (id: string, status: RecordStatus) => void;
   onDelete: (id: string) => void;
+  onPress?: () => void;
 }
 
-export function RecordCard({ record, onStatusToggle, onDelete }: RecordCardProps) {
+export function RecordCard({ record, onStatusToggle, onDelete, onPress }: RecordCardProps) {
   const { t } = useTranslation();
   const isDone = record.status === 'DONE';
   const colors = CATEGORY_COLORS[record.category];
@@ -44,7 +45,11 @@ export function RecordCard({ record, onStatusToggle, onDelete }: RecordCardProps
   };
 
   return (
-    <View className="bg-white dark:bg-gray-900 rounded-2xl p-4 mb-3 border border-gray-100 dark:border-gray-800">
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={onPress ? 0.7 : 1}
+      className="bg-white dark:bg-gray-900 rounded-2xl p-4 mb-3 border border-gray-100 dark:border-gray-800"
+    >
       {/* Top row: badges + actions */}
       <View className="flex-row items-center mb-2 gap-2">
         <View className={`px-2.5 py-0.5 rounded-full ${colors.bg}`}>
@@ -113,6 +118,6 @@ export function RecordCard({ record, onStatusToggle, onDelete }: RecordCardProps
           ))}
         </View>
       ) : null}
-    </View>
+    </TouchableOpacity>
   );
 }
