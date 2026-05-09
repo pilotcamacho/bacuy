@@ -3,6 +3,7 @@ import '../i18n';
 import '../lib/amplify';
 
 import { useEffect } from 'react';
+import { View } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -11,6 +12,8 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAuthStore } from '@/store';
 import { checkCurrentUser } from '@/lib/auth';
+import { useMessageQueueSync } from '@/hooks/use-message-queue-sync';
+import { NotificationBanner } from '@/components/notification-banner';
 
 function AuthGuard() {
   const { isAuthenticated, isLoading } = useAuthStore();
@@ -30,12 +33,19 @@ function AuthGuard() {
   return null;
 }
 
+function MessageQueueManager() {
+  const { bannerEntry, dismissBanner } = useMessageQueueSync();
+
+  if (!bannerEntry) return null;
+  return <NotificationBanner entry={bannerEntry} onDismiss={dismissBanner} />;
+}
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const { setUser, setLoading } = useAuthStore();
 
   useEffect(() => {
-    checkCurrentUser().then(user => {
+    checkCurrentUser().then((user) => {
       setUser(user);
       setLoading(false);
     });
@@ -44,13 +54,16 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <AuthGuard />
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="record/[id]" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
+      <View style={{ flex: 1 }}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="record/[id]" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack>
+        <StatusBar style="auto" />
+        <MessageQueueManager />
+      </View>
     </ThemeProvider>
   );
 }

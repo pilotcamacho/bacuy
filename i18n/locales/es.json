@@ -19,6 +19,7 @@
     "home": "Inicio",
     "capture": "Capturar",
     "records": "Registros",
+    "notifications": "Notificaciones",
     "settings": "Ajustes"
   },
   "capture": {
@@ -126,9 +127,11 @@
   },
   "messages": {
     "title": "Notificaciones",
-    "empty": "Sin mensajes",
+    "empty": "Sin notificaciones aún",
     "markRead": "Marcar como leído",
-    "dismiss": "Descartar"
+    "dismiss": "Descartar",
+    "filterALL": "Todas",
+    "filterUNREAD": "Sin leer"
   },
   "settings": {
     "title": "Ajustes",

@@ -19,6 +19,7 @@
     "home": "Home",
     "capture": "Capture",
     "records": "Records",
+    "notifications": "Notifications",
     "settings": "Settings"
   },
   "capture": {
@@ -126,9 +127,11 @@
   },
   "messages": {
     "title": "Notifications",
-    "empty": "No messages",
+    "empty": "No notifications yet",
     "markRead": "Mark as read",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "filterALL": "All",
+    "filterUNREAD": "Unread"
   },
   "settings": {
     "title": "Settings",
