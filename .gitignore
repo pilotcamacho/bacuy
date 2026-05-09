@@ -66,3 +66,6 @@ ehthumbs.db
 *.suo
 *.user
 .vscode/settings.json
+
+# ── Claude Code ──────────────────────────────────────────────────────────────────
+.claude/
