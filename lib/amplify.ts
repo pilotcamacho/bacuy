@@ -11,6 +11,6 @@ try {
 } catch {
   console.warn(
     '[Amplify] amplify_outputs.json not found.\n' +
-    'Run "npx ampx sandbox" inside the mobile/ folder to generate it.'
+    'Run "npx ampx sandbox" from the project root to generate it.'
   );
 }
